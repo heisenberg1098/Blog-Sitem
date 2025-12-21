@@ -2,14 +2,32 @@
 
 :root {
     --green: #27ae60;
-    --black: #444;
+    --black: #444; /* Gündüz yazı rengi */
     --light-color: #777;
     --bg-color: #e6e6e6;
+    --card-bg: #fff;
     --border: .1rem solid rgba(0, 0, 0, .2);
-    --box-shadow: .4rem .4rem 1rem #ccc,
-        -.4rem .4rem 1rem #fff;
-    --box-shadow-inset: .4rem .4rem 1rem #ccc inset,
-        -.4rem .4rem 1rem #fff inset;
+    --box-shadow: .4rem .4rem 1rem #ccc, -.4rem .4rem 1rem #fff;
+    --box-shadow-inset: .4rem .4rem 1rem #ccc inset, -.4rem .4rem 1rem #fff inset;
+}
+
+/* Dark Mode - body'e .active gelince burası devreye girer */
+body.active {
+    --black: #fff; /* Yazılar artık BEYAZ olacak */
+    --light-color: #bbb;
+    --bg-color: #222; /* Arka plan siyah */
+    --card-bg: #333;
+    --box-shadow: .4rem .4rem 1rem #111, -.4rem .4rem 1rem #444;
+    --box-shadow-inset: .4rem .4rem 1rem #111 inset, -.4rem .4rem 1rem #444 inset;
+}
+
+/* Tüm başlıkların ve yazıların değişkene bağlı olduğundan emin olalım */
+section h1, section h2, section h3, .content h3, .box h3, .web-card h3 {
+    color: var(--black) !important;
+}
+
+section p, .web-card p, .admin-mesaj-kart p {
+    color: var(--light-color) !important;
 }
 
 ::selection {
@@ -587,4 +605,354 @@ object-fit: cover;
         border-radius: 0;
     }
 
+}/* Web Sitelerim Özel Tasarımı */
+.web .box-container .box img.placeholder-img {
+    background-color: var(--green);
+    padding: 2rem;
+    object-fit: contain;
+}
+
+.web .box-container .box:hover img.placeholder-img {
+    background-color: #219150; /* Daha koyu yeşil */
+}
+
+/* Modal / Admin Paneli Stilleri */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    margin: 10% auto;
+    padding: 3rem;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 1rem;
+    box-shadow: var(--box-shadow);
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+    font-size: 3rem;
+    cursor: pointer;
+    color: var(--black);
+}
+
+.mesaj-kart {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow-inset);
+    background: var(--bg-color);
+}
+
+.mesaj-kart h4 { font-size: 1.8rem; color: var(--green); }
+.mesaj-kart p { font-size: 1.4rem; color: var(--black); margin-top: .5rem; }
+
+
+/* Web Sitelerim Bölümü Özel Stilleri */
+#websiteContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+}
+
+.web-card {
+    background: var(--bg-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    transition: 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: var(--border);
+}
+
+.web-card:hover {
+    transform: translateY(-1rem);
+    box-shadow: var(--box-shadow-inset);
+}
+
+.web-card .img-box {
+    height: 15rem;
+    width: 100%;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--green); /* Resim yoksa arka plan yeşil */
+}
+
+.web-card .img-box img {
+    max-height: 80%;
+    object-fit: contain;
+}
+
+.web-card h3 {
+    font-size: 2.2rem;
+    color: var(--black);
+    text-transform: uppercase; /* Başlıklar büyük */
+    margin-bottom: 1rem;
+}
+
+.web-card p {
+    font-size: 1.4rem;
+    color: var(--light-color);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.web-card .btn {
+    display: block;
+    width: 100%;
+}.admin-full-panel {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: var(--bg-color); z-index: 3000; padding: 2rem; overflow-y: auto;
+}
+.panel-header { display: flex; justify-content: space-between; margin-bottom: 2rem; border-bottom: 2px solid var(--green); padding-bottom: 1rem; }
+.panel-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
+.panel-section { background: #fff; padding: 2rem; border-radius: 1rem; box-shadow: var(--box-shadow); }
+.admin-mesaj-kart { 
+    background: var(--bg-color); padding: 1.5rem; border-radius: .5rem; 
+    margin-bottom: 1rem; position: relative; border-left: 5px solid var(--green);
+}
+.sil-btn { color: red; cursor: pointer; position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; }
+.panel-section h2 { font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--black); }
+
+
+
+/* Gelişmiş Admin Pop-up Tasarımı */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 4000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px); /* Arka planı bulanıklaştırır */
+}
+
+.modal-content {
+    background: var(--bg-color);
+    margin: 10% auto;
+    padding: 4rem;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 2rem;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-content h3 {
+    font-size: 3rem;
+    color: var(--black);
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Kapatma Butonu Geliştirmesi */
+.close-admin {
+    position: absolute;
+    right: 2.5rem;
+    top: 1.5rem;
+    font-size: 4rem; /* Büyütüldü */
+    font-weight: bold;
+    color: var(--black);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-admin:hover {
+    color: var(--green);
+    transform: rotate(90deg);
+}
+
+/* Şık İnput Tasarımı */
+.admin-input-group {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+#pSifre {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    font-size: 1.8rem; /* Büyütüldü */
+    background: var(--bg-color);
+    border-radius: 1rem;
+    box-shadow: var(--box-shadow-inset);
+    border: 2px solid transparent;
+    color: var(--black);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#pSifre:focus {
+    border: 2px solid var(--green);
+    box-shadow: 0 0 15px rgba(39, 174, 96, 0.2);
+}
+
+/* Giriş Butonu */
+.modal-content .btn {
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+/* --- YÖNETİM PANELİ MODERN TASARIM --- */
+
+.admin-full-panel {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--bg-color);
+    z-index: 5000;
+    padding: 3rem;
+    overflow-y: auto;
+    animation: fadeIn 0.5s ease;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: .3rem solid var(--green);
+}
+
+.panel-header h1 {
+    font-size: 4rem;
+    color: var(--black);
+    text-transform: uppercase;
+}
+
+.panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
+    gap: 3rem;
+    align-items: start;
+}
+
+.panel-section {
+    background: var(--bg-color);
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: var(--box-shadow); /* Mevcut neumorphism gölgen */
+    border: var(--border);
+}
+
+.panel-section h2 {
+    font-size: 2.8rem;
+    color: var(--green);
+    margin-bottom: 2.5rem;
+    border-left: .5rem solid var(--green);
+    padding-left: 1.5rem;
+}
+
+/* --- DAHA BÜYÜK VE ANLAŞILIR INPUTLAR --- */
+
+.admin-form-group {
+    margin-bottom: 2rem;
+}
+
+.admin-form-group label {
+    display: block;
+    font-size: 1.6rem;
+    color: var(--light-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.panel-section .box {
+    width: 100%;
+    background: var(--bg-color);
+    box-shadow: var(--box-shadow-inset);
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    font-size: 1.8rem; /* Yazılar büyütüldü */
+    color: var(--black);
+    margin-bottom: 1rem;
+    border: .2rem solid transparent;
+    transition: .3s ease;
+}
+
+.panel-section .box:focus {
+    border-color: var(--green);
+}
+
+.panel-section textarea.box {
+    height: 15rem;
+    resize: none;
+}
+
+/* --- MESAJ KARTLARI --- */
+
+.admin-mesaj-kart {
+    background: var(--bg-color);
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    transition: .3s;
+}
+
+.admin-mesaj-kart:hover {
+    transform: scale(1.02);
+}
+
+.admin-mesaj-kart strong {
+    font-size: 2rem;
+    color: var(--black);
+    display: block;
+}
+
+.admin-mesaj-kart small {
+    font-size: 1.4rem;
+    color: var(--green);
+}
+
+.admin-mesaj-kart p {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    color: var(--light-color);
+    line-height: 1.5;
+}
+
+.sil-btn {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    font-size: 2.5rem;
+    color: #e74c3c;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.sil-btn:hover {
+    transform: rotate(15deg) scale(1.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-2rem); }
+    to { opacity: 1; transform: translateY(0); }
 }

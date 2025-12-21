@@ -13,7 +13,7 @@
     <header class="header">
         <div class="user">
             <img src="Ben.png" alt="">
-            <h3>M. Enes Yalçın</h3>
+            <h3 onclick="adminPopUpAc()">M.Enes Yalçın</h3>
             <p>Ön-Yüz Geliştirici</p>
         </div>
         <nav class="navbar">
@@ -22,6 +22,7 @@
             <a href="#services">Hizmetler</a>
             <a href="#projeler">Portföy</a>
             <a href="#contact">İletişim</a>
+            <a href="#web">Web Siteleri</a>
 
         </nav>
     </header>
@@ -31,7 +32,7 @@
 
     <section class="home" id="home">
         <div class="content">
-            <h3>M.Enes Yalçın</h3>
+            <h3 onclick="adminPopUpAc()">M.Enes Yalçın</h3>
             <p>Ben ön-yüz geliştiriciyim</p>
             <a href="CV.pdf" download class="btn">CV(Özgeçmiş) İndir</a>
         </div>
@@ -183,32 +184,114 @@
 
         </div>
     </section>
+    <section class="web" id="web">
+        <h1 class="heading"> <span>Web</span> Sitelerim </h1>
+        <div class="box-container" id="websiteContainer">
+            <div class="loading-text" style="font-size: 2rem; color: var(--black); text-align: center; width: 100%;">
+                Yükleniyor...
+            </div>
+        </div>
+    </section>
 
     <section class="contact" id="contact">
         <h1 class="heading"> <span>Benimle</span> İletişime Geç </h1>
-
-        <form action="">
-            <input type="text" placeholder="Adınız" class="box">
-            <input type="email" placeholder="E-Posta Adresiniz" class="box"> 
-            <input type="text" placeholder="Konu" class="box">
-            <textarea name="" class="box" placeholder="Mesajınız" id="" cols="30" rows="10"></textarea>
+        <form id="iletisimForm">
+            <input type="text" id="isim" placeholder="Adınız" class="box" required>
+            <input type="email" id="email" placeholder="E-Posta Adresiniz" class="box" required>
+            <input type="text" id="konu" placeholder="Konu" class="box" required>
+            <textarea id="mesaj" class="box" placeholder="Mesajınız" cols="30" rows="10" required></textarea>
             <input type="submit" value="Gönder" id="buton" class="btn">
+            <div id="mesajBildirim" style="display:none; margin-top: 1rem; font-size: 1.5rem; text-align: center;">
+            </div>
         </form>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <button onclick="alert('Yetkiniz Yok !!!')" class="btn">Yönetim Paneli</button>
+        </div>
     </section>
+
+    <div id="mesajModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="adminGiris">
+                <h3>Yönetici Girişi</h3>
+                <input type="password" id="adminSifre" placeholder="Şifreyi Girin" class="box"
+                    style="width:100%; margin: 1rem 0;">
+                <button id="girisBtn" class="btn">Giriş Yap</button>
+            </div>
+            <div id="mesajListesi" style="display:none;">
+                <h3>Gelen Mesajlar</h3>
+                <div id="mesajContainer"></div>
+                <button id="cikisBtn" class="btn" style="margin-top: 1rem;">Çıkış Yap</button>
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="yapayzeka">
         <img id="yicon" src="yapayZekaimg.png" alt="">
         <form action="" id="yapayform">
-            <textarea name="" class="box2" id="yapaytext" placeholder="Bana Soru Sor" id="" cols="30" rows="10"></textarea>
+            <textarea name="" class="box2" id="yapaytext" placeholder="Bana Soru Sor" id="" cols="30"
+                rows="10"></textarea>
             <input type="submit" value="Gönder" id="yapaybuton" class="btn">
         </form>
     </div>
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close-admin">&times;</span>
+            <h3>Yönetici Girişi</h3>
+            <input type="password" id="pSifre" placeholder="Şifre" class="box" style="width:100%; margin:1rem 0;">
+            <button onclick="adminGirisKontrol()" class="btn">Giriş Yap</button>
+        </div>
+    </div>
 
+    <div id="adminPanel" class="admin-full-panel" style="display:none;">
+        <div class="panel-header">
+            <h1><i class="fas fa-user-shield"></i> Yönetim Merkezi</h1>
+            <button onclick="panelKapat()" class="btn"><i class="fas fa-times"></i> Paneli Kapat</button>
+        </div>
+
+        <div class="panel-grid">
+            <div class="panel-section">
+                <h2><i class="fas fa-plus-circle"></i> Yeni Proje Yayınla</h2>
+                <form id="siteEkleForm">
+                    <div class="admin-form-group">
+                        <label>Proje Adı</label>
+                        <input type="text" id="sAd" placeholder="Örn: E-Ticaret Uygulaması" class="box" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Proje Linki</label>
+                        <input type="text" id="sLink" placeholder="https://..." class="box" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Özel Font (İsteğe Bağlı)</label>
+                        <input type="text" id="sFont" placeholder="Google Font adı yazın" class="box">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Proje Açıklaması</label>
+                        <textarea id="sAciklama" placeholder="Projenin amacını kısaca anlatın..."
+                            class="box"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; padding: 1.5rem; font-size: 2rem;">
+                        <i class="fas fa-rocket"></i> Siteyi Yayınla
+                    </button>
+                </form>
+            </div>
+
+            <div class="panel-section">
+                <h2><i class="fas fa-envelope-open-text"></i> Gelen Mesaj Kutusu</h2>
+                <div id="adminMesajListesi">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="credits"> tasarlayan <span>M.Enes Yalçın</span> | Tüm hakları saklıdır </div>
 
-    <script src="javascript.js">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-    </script>
+    <script src="javascript.js"></script>
 </body>
 
 </html>
