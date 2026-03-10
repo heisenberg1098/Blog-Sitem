@@ -276,3 +276,32 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Blog sitesindeki javascript.js dosyasına eklenecek güncel sürüm
+window.addEventListener('DOMContentLoaded', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    let hedefSiteLinki = urlParams.get('site'); 
+
+    if (hedefSiteLinki) {
+        // Linkin sonundaki "/" işaretlerini temizle (Eşleşme şansını artırır)
+        hedefSiteLinki = hedefSiteLinki.replace(/\/$/, "");
+
+        try {
+            // Koleksiyon adının görseldeki gibi "websiteler" olduğundan emin ol
+            const querySnapshot = await db.collection("websiteler").get();
+
+            querySnapshot.forEach(async (doc) => {
+                const dbLink = doc.data().link.replace(/\/$/, ""); // DB'deki linki de temizle
+                
+                if (dbLink === hedefSiteLinki) {
+                    await db.collection("websiteler").doc(doc.id).update({
+                        // Eğer alan yoksa 1 yapar, varsa 1 artırır
+                        tiklanmaSayisi: firebase.firestore.FieldValue.increment(1)
+                    });
+                    console.log("Başarıyla artırıldı: " + doc.data().isim);
+                }
+            });
+        } catch (error) {
+            console.error("Hata detayı:", error);
+        }
+    }
+});
